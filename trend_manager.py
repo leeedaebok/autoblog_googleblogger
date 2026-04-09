@@ -29,22 +29,18 @@ def generate_dynamic_keyword():
     """
 
     try:
-        print(f"🗓️ Today's Date: {today_date}")
         response = client.models.generate_content(model=config.MODEL_NAME, contents=prompt)
-        # 생성된 텍스트에서 키워드 추출 및 정리
         keywords = [k.strip() for k in response.text.strip().split(',')]
         selected = random.choice(keywords)
-        print(f"🪄 AI Generated Keyword: '{selected}'")
         return selected
     except Exception as e:
-        print(f"❌ AI Keyword Generation Failed: {e}")
+        print(f"❌ AI 키워드 생성 실패: {e}")
         return None
 
 def get_google_trend():
     """
     생성된 주제로 Serper.dev 뉴스를 가져와 블로그 글감을 확정합니다.
     """
-    print("📡 Connecting to Serper.dev (Google News)...")
 
     # 1. 먼저 AI에게 실시간 키워드 요청
     query = generate_dynamic_keyword()
@@ -104,8 +100,7 @@ def get_google_trend():
         if 'news' in data and len(data['news']) > 0:
             pick = data['news'][0]
             clean_title = pick['title'].split(" - ")[0].strip()
-            print(f"🔥 Trending Topic Found: {clean_title}")
-            print(f"🔗 Source Link: {pick['link']}")
+            print(f"트렌드 주제: {clean_title}")
             return clean_title
             
         else:

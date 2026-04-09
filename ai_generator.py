@@ -27,7 +27,6 @@ def generate_content(topic):
     """
     주제(topic)를 받아서 미국 타겟의 분석 영어 블로그 포스팅 내용을 JSON으로 반환
     """
-    print(f"🤖 AI가 '{topic}' 에 대해 분석 및 영문 작성을 시작합니다...")
     
     # [가이드라인] 본문 내 큰따옴표 사용을 자제시키거나 escape 처리를 유도합니다.
     prompt = f"""
@@ -66,9 +65,7 @@ def generate_content(topic):
         return json.loads(refined_text)
         
     except json.JSONDecodeError as e:
-        print(f"❌ JSON 파싱 실패: {e}")
-        # 실패 시 로그에 원본 텍스트 일부를 찍어 확인합니다.
-        print(f"DEBUG: 원본 AI 출력 (앞 100자): {raw_text[:100]}")
+        print(f"❌ JSON 파싱 실패: {e} | 원본 앞부분: {raw_text[:100]}")
         return None
     except Exception as e:
         print(f"❌ AI 생성 실패: {e}")
@@ -86,9 +83,8 @@ def refine_topic_with_ai(keyword):
         """
         response = client.models.generate_content(model=MODEL_NAME, contents=prompt)
         new_topic = response.text.strip()
-        print(f"🤖 제목 개선 완료: {new_topic}")
         return new_topic
-        
+
     except Exception as e:
-        print(f"제목 개선 실패: {e}")
+        print(f"❌ 제목 개선 실패: {e}")
         return f"Everything about {keyword}"

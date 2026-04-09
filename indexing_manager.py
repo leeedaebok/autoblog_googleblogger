@@ -32,22 +32,21 @@ def request_indexing(post_url):
         }
         
         # 3. API 호출
-        print(f"🤖 구글 색인 요청 중: {post_url}")
         response, content = http.request(
-            ENDPOINT, 
-            method="POST", 
-            body=json.dumps(content), 
+            ENDPOINT,
+            method="POST",
+            body=json.dumps(content),
             headers={'Content-Type': 'application/json'}
         )
-        
+
         # 4. 결과 분석
         if response.status == 200:
-            print(f"✅ 구글 색인 요청 완료! (상태: {response.status})")
+            print(f"✅ 색인 요청 완료: {post_url}")
             return True
         else:
-            print(f"❌ 색인 요청 서버 응답 오류: {response.status} - {content.decode('utf-8')}")
+            print(f"❌ 색인 요청 실패 ({response.status}): {content.decode('utf-8')}")
             return False
 
     except Exception as e:
-        print(f"❌ 구글 색인 최종 실패 상세: {str(e)}")
+        print(f"❌ 색인 요청 오류: {e}")
         return False

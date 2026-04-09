@@ -13,8 +13,6 @@ def post_article(service, data):
         blog_id = blogs['items'][0]['id']
         blog_name = blogs['items'][0]['name']
 
-        print(f"📝 블로그 선택됨: {blog_name}")
-
         # 3. 글 내용 구성
         body = {
             "title": data['title'],
@@ -30,20 +28,15 @@ def post_article(service, data):
             isDraft=False
         ).execute()
         
-        print(f"✅ 발행 성공! [{blog_name}]")
-        print(f"   제목: {posts['title']}")
-        print(f"   링크: {posts['url']}")
-        print(f"   태그(라벨): {body['labels']}")
+        print(f"✅ 발행 완료: {posts['url']}")
 
         # ▼▼▼ 색인 요청 로직 추가 위치 ▼▼▼
         try:
             from indexing_manager import request_indexing
             # 발행된 포스트의 실제 URL을 전달합니다.
             indexing_success = request_indexing(posts['url'])
-            if indexing_success:
-                print("🚀 구글 서치 콘솔에 즉시 색인 요청을 보냈습니다.")
-            else:
-                print("⚠️ 색인 요청 과정에서 문제가 발생했습니다.")
+            if not indexing_success:
+                print("⚠️ 색인 요청 실패")
         except Exception as e:
             print(f"❌ 색인 모듈 실행 중 에러: {e}")
             
