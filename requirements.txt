@@ -1,6 +1,13 @@
+flask
+gunicorn
+google-generativeai>=0.8.6
 google-api-python-client
 google-auth-httplib2
 google-auth-oauthlib
-google-generativeai
-python-dotenv
+feedparser
 requests
+python-dotenv
+# requirements.txt에 추가
+oauth2client
+google-api-python-client
+httplib2

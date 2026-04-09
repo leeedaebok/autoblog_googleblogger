@@ -16,4 +16,14 @@ if not UNSPLASH_ACCESS_KEY:
 CLIENT_SECRET_FILE = 'client_secret.json'
 TOKEN_FILE = 'token.pickle'
 SCOPES = ['https://www.googleapis.com/auth/blogger']
-MODEL_NAME = 'gemini-2.0-flash'
+MODEL_NAME = 'gemini-2.5-flash-lite'
+
+GOOGLE_API_KEY= os.getenv("GEMINI_API_KEY")
+
+# 2. 방금 설정한 검색엔진의 ID (cx 값)
+GOOGLE_CSE_ID = os.getenv("GOOGLE_CSE_ID")
+
+SERPER_API_KEY = os.getenv("SERPER_API_KEY")
+
+BLOG_ID = os.getenv("BLOG_ID")
+GOOGLE_APPLICATION_CREDENTIALS = os.getenv("GOOGLE_APPLICATION_CREDENTIALS", "service-account-key.json")
