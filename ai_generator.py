@@ -34,6 +34,7 @@ def generate_content(topic):
     Topic: {topic}
 
     [Writing Guidelines]
+    0. **No Intro:** NEVER start with self-introductions, greetings ("Hello", "Hi everyone"), or "In this post I will...". Jump straight into the content.
     1. **Hook:** Start with a provocative question or strong statement.
     2. **Structure:** MUST include "📌 Key Takeaways" (3 bullet points) at the beginning.
     3. **Content:** Long-form HTML (<h3>, <p>, <ul>, <li>). 1000+ words.
@@ -45,6 +46,7 @@ def generate_content(topic):
     Return ONLY a valid JSON object:
     {{
         "title": "Catchy Title",
+        "meta_description": "155 characters max — compelling search snippet summarizing the post",
         "image_keyword": "Abstract keyword for AI image generation",
         "content": "Full HTML content",
         "tags": ["tag1", "tag2", "tag3"]

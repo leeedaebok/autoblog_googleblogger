@@ -1,7 +1,13 @@
+import io
 import os
 import sys
 import traceback
 from datetime import datetime
+
+if sys.stdout.encoding != 'utf-8':
+    sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', errors='replace')
+if sys.stderr.encoding != 'utf-8':
+    sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding='utf-8', errors='replace')
 
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
@@ -18,6 +24,10 @@ def setup_logs():
 class Tee:
     def __init__(self, *streams):
         self.streams = streams
+
+    @property
+    def encoding(self):
+        return getattr(self.streams[0], 'encoding', 'utf-8')
 
     def write(self, data):
         for s in self.streams:
@@ -106,7 +116,7 @@ def run():
         send_error_email(PROJECT_NAME, log_content)
     else:
         # 정상 종료 시 로그 삭제
-        os.remove(log_path)
+        pass  # 성공 로그 보존
 
 
 if __name__ == '__main__':

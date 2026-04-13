@@ -37,6 +37,16 @@ def run_process():
     except Exception as e:
         return f"Auth Error: {e}"
     
+    # 3-1. meta_description을 본문 첫 단락으로 삽입 (Blogger 자동 발췌문으로 활용)
+    meta_desc = blog_data.get('meta_description', '')
+    if meta_desc:
+        summary_html = (
+            f'<p style="font-size:1.05em;color:#444;border-left:4px solid #1a73e8;'
+            f'padding:10px 16px;margin-bottom:24px;background:#f8f9fa;border-radius:4px;">'
+            f'{meta_desc}</p>\n'
+        )
+        blog_data['content'] = summary_html + blog_data['content']
+
     # 4. 이미지 생성 및 본문 삽입
     try:
         img_keyword = blog_data.get('image_keyword', final_topic)

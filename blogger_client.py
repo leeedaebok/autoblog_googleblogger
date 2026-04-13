@@ -1,17 +1,12 @@
 def post_article(service, data):
     """작성된 글 데이터를 블로그에 발행"""
     try:
-        # 1. 내 계정의 블로그 리스트 가져오기
-        blogs = service.blogs().listByUser(userId='self').execute()
-        
-        if not blogs.get('items'):
-            print("❌ 계정에 블로그가 없습니다. 구글 블로거를 먼저 생성해주세요.")
+        import config
+        blog_id = config.BLOG_ID
+        if not blog_id:
+            print("❌ .env에 BLOG_ID가 설정되지 않았습니다.")
             return
-
-        # 2. 첫 번째 블로그 선택 (일반적으로 메인 블로그)
-        # 만약 특정 블로그에만 쓰고 싶다면 blog_id = '12345678...' 처럼 직접 넣어도 됩니다.
-        blog_id = blogs['items'][0]['id']
-        blog_name = blogs['items'][0]['name']
+        blog_name = "bok's back pocket"
 
         # 3. 글 내용 구성
         body = {
