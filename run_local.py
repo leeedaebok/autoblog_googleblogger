@@ -21,6 +21,12 @@ def setup_logs():
     return log_dir, ts
 
 
+def has_error_today(log_dir: str, today: str) -> bool:
+    if not os.path.exists(log_dir):
+        return False
+    return any(f.startswith(today) and '_error' in f for f in os.listdir(log_dir))
+
+
 class Tee:
     def __init__(self, *streams):
         self.streams = streams
@@ -107,16 +113,15 @@ def run():
             sys.stderr = old_stderr
 
     if error_occurred:
-        # 에러 로그 보존 후 메일 발송
         error_path = os.path.join(log_dir, f'{ts}_error.txt')
         os.rename(log_path, error_path)
         with open(error_path, 'r', encoding='utf-8') as f:
             log_content = f.read()
         from notify import send_error_email
         send_error_email(PROJECT_NAME, log_content)
-    else:
-        # 정상 종료 시 로그 삭제
-        pass  # 성공 로그 보존
+    elif has_error_today(log_dir, ts[:8]):
+        from notify import send_recovery_email
+        send_recovery_email(PROJECT_NAME)
 
 
 if __name__ == '__main__':
