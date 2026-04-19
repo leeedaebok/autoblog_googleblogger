@@ -17,15 +17,16 @@ def generate_dynamic_keyword():
 
     # 프롬프트에 오늘 날짜를 명시하여 최신성 강조
     prompt = f"""
-    Today is {today_date}. 
-    Generate 3 highly viral and trending search keywords for a global English blog.
-    The topics should be what people are most curious about right now, such as:
-    - Viral social media trends or internet culture
-    - Breaking entertainment, celebrity news, or movie/show releases
-    - Shocking global events, lifestyle hacks, or travel trends
-    - Revolutionary tech or health discoveries that interest everyone
-    Return ONLY the 3 keywords separated by commas.
-    Example: Oscar 2026 predictions, viral TikTok lifestyle hack, global travel hidden gems
+    Today is {today_date}.
+    Generate 3 trending search keywords for a global English blog that spark curiosity or strong emotion.
+    Prioritize topics that make people think "I need to know this" or "I didn't know that":
+    - Surprising facts or misconceptions people believe that turn out to be wrong
+    - "Why is everyone talking about X?" moments — things blowing up on social media right now
+    - Practical life-changing tips or hidden knowledge most people don't know yet
+    - Controversial or counterintuitive takes on tech, money, health, or relationships
+    - "What's really happening with X" — behind-the-scenes or untold stories on trending events
+    Return ONLY the 3 keywords separated by commas. Make each keyword feel like a question someone would actually Google.
+    Example: why Americans are quitting coffee in 2026, hidden dangers of AI assistants nobody talks about, the real reason remote work is failing
     """
 
     try:
